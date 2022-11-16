@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  nethermind:
+    image: nethermind/nethermind:1.14.3
+    restart: on-failure
+    command:
+      --config exosama
+    volumes:
+      - ./chainspec:/nethermind/chainspec:ro
+      - ./configs:/nethermind/configs:ro
+      - ./db:/nethermind/db
+      - ./keystore:/nethermind/keystore
+      - ./logs:/nethermind/logs
+    ports:
+      - 30303:30303
+      - 30303:30303/udp
+      - 127.0.0.1:8545:8545
