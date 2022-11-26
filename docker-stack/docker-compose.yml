@@ -15,3 +15,19 @@ services:
       - 30303:30303
       - 30303:30303/udp
       - 127.0.0.1:8545:8545
+  reverse_proxy:
+    build: ./reverse_proxy
+    restart: on-failure
+    container_name: 'authentication'
+    environment:
+         AUTHENTICATION_HEADER: "'Basic aW52YWxpZDppbnZhbGlk'"
+         LISTEN_PORT: 9010
+         PUSHGATEWAY_ADDRESS: pushgateway.example.com
+    ports:
+      - 9010:9010
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+ 
