@@ -20,7 +20,7 @@ services:
     restart: on-failure
     container_name: 'authentication'
     environment:
-         AUTHENTICATION_HEADER: "'Basic aW52YWxpZDppbnZhbGlk'"
+         AUTHENTICATION_HEADER: "aW52YWxpZDppbnZhbGlk"
          LISTEN_PORT: 9010
          PUSHGATEWAY_ADDRESS: pushgateway.example.com
     ports:
