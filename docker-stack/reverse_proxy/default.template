@@ -5,7 +5,7 @@ server {
     resolver 8.8.8.8 1.1.1.1 valid=30s ipv6=off;
     location / {
         proxy_set_header Host ${PUSHGATEWAY_ADDRESS};
-        proxy_set_header Authorization ${AUTHENTICATION_HEADER};
+        proxy_set_header Authorization "Basic ${AUTHENTICATION_HEADER}";
         proxy_ssl_verify       on;
         proxy_intercept_errors on;
         proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
