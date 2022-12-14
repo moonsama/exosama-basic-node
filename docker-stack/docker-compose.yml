@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   nethermind:
-    image: nethermind/nethermind:1.14.3
+    image: nethermind/nethermind:1.14.7
     restart: on-failure
     command:
       --config exosama
