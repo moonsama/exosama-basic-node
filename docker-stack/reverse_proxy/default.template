@@ -1,0 +1,19 @@
+server {
+    listen       ${LISTEN_PORT};
+    listen  [::]:${LISTEN_PORT};
+    server_name  _;
+    resolver 8.8.8.8 1.1.1.1 valid=30s ipv6=off;
+    location / {
+        proxy_set_header Host ${PUSHGATEWAY_ADDRESS};
+        proxy_set_header Authorization "Basic ${AUTHENTICATION_HEADER}";
+        proxy_ssl_verify       on;
+        proxy_intercept_errors on;
+        proxy_ssl_trusted_certificate /etc/ssl/certs/ca-certificates.crt;
+        #set $backend_upstream ${PUSHGATEWAY_ADDRESS};
+        proxy_pass https://${PUSHGATEWAY_ADDRESS};
+        proxy_ssl_name ${PUSHGATEWAY_ADDRESS};
+        proxy_ssl_session_reuse off;
+        proxy_ssl_server_name on;
+    }
+}
+
